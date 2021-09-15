@@ -1,6 +1,7 @@
 import { Message } from 'discord.js';
 import { Command } from './commands/command';
 import { GreetCommand } from './commands/greet';
+import { GregoryCommand } from './commands/gregory';
 import { HelpCommand } from './commands/help';
 import { RollCommand } from './commands/roll';
 import { StatsCommand } from './commands/stats';
@@ -17,6 +18,7 @@ export class CommandHandler {
     const commandClasses = [
       // TODO: Add more commands here.
       GreetCommand,
+      GregoryCommand,
       RollCommand,
       StatsCommand
     ];

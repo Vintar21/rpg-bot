@@ -1,7 +1,7 @@
 {
-  "name": "discord-typescript-bot",
+  "name": "rpg-bot",
   "version": "0.1.1",
-  "description": "A starting point for a TypeScript Discord bot",
+  "description": "A bot with various features for playing rpg games via Discord",
   "repository": {
     "type": "git",
     "url": "https://github.com/hopskipnfall/discord-typescript-bot"
