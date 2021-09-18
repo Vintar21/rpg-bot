@@ -26,13 +26,13 @@ export class LuckCommand implements Command {
     return answer;
   }
 
-  private getCheckedAnswer(passed: boolean, modifier: DiceResult): string {
+  private getCheckedAnswer(passed: boolean, luckCheck: DiceResult, modifier: DiceResult): string {
     let answer: string = '';
     if (passed) {
-        answer += line(bold(`Luck check passed `) + '✅');
+        answer += line(bold(`Luck check passed `) + `✅ (${luckCheck.result})`);
         answer += line(`Decrease your luck of ${modifier.result}`);
     } else {
-        answer += line(bold(`Luck check failed `) + '❌');
+        answer += line(bold(`Luck check failed `) + `❌ (${luckCheck.result})`);
         answer += line(`Increase your luck of ${modifier.result}`);
     }
     return answer;
@@ -47,7 +47,7 @@ export class LuckCommand implements Command {
 
     if (parsedUserCommand.args.length >= 1 && !isNaN(parseInt(parsedUserCommand.args[0]))) {
         const luckValue: boolean = luckCheck.result <= parseInt(parsedUserCommand.args[0]);
-        answer = mentionUser(parsedUserCommand) + emptyLine() + this.getCheckedAnswer(luckValue, modifier);
+        answer = mentionUser(parsedUserCommand) + emptyLine() + this.getCheckedAnswer(luckValue, luckCheck, modifier);
 
     } else {
         answer = mentionUser(parsedUserCommand) + emptyLine() + this.getDefaultAnswer(luckCheck, modifier);
