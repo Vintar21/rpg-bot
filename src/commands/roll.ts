@@ -2,7 +2,7 @@ import { Dice, DiceUtils, DiceResult, Bonus } from '../utils/dice-utils';
 import { CommandContext } from '../models/command_context';
 import { Command } from './command';
 import { emptyLine, it, line, bold, underline, indent, mentionUser } from '../utils/discord-utils';
-import { logRoll } from '../server';
+import { logRoll } from '../utils/server-utils';
 
 interface Roll {
   totalDices: number;

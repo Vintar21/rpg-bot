@@ -57,4 +57,11 @@ export class Statistic {
         const min: string = this.stringProperty('Min', this.min);
         return title + numberRolls + mean + max + min;
     }
+
+    convertToJSONObject(): any {
+        return {
+            dice: this.dice.value,
+            rolls: this.rolls
+        };
+    }
 }

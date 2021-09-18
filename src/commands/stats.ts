@@ -1,8 +1,8 @@
 import { CommandContext } from '../models/command_context';
 import { Command } from './command';
 import { emptyLine, mentionUser } from '../utils/discord-utils';
-import { getUsers } from '../server';
 import { RollUser } from '../data/roll-user';
+import { UsersManager } from '../managers/users-manager';
 
 
 export class StatsCommand implements Command {
@@ -14,7 +14,7 @@ export class StatsCommand implements Command {
   }
 
   async run(parsedUserCommand: CommandContext): Promise<void> {
-      const users: RollUser[] = getUsers();
+      const users: RollUser[] = UsersManager.users();
       let text: string = '';
       users.forEach((user) => {
           if (user.user.id === parsedUserCommand.originalMessage.author.id) {

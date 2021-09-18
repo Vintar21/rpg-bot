@@ -1,8 +1,10 @@
 import { Message } from 'discord.js';
 import { Command } from './commands/command';
+import { ExportCommand } from './commands/export-users';
 import { GreetCommand } from './commands/greet';
 import { GregoryCommand } from './commands/gregory';
 import { HelpCommand } from './commands/help';
+import { LoadCommand } from './commands/load-users';
 import { RollCommand } from './commands/roll';
 import { StatsCommand } from './commands/stats';
 import { CommandContext } from './models/command_context';
@@ -20,7 +22,9 @@ export class CommandHandler {
       GreetCommand,
       GregoryCommand,
       RollCommand,
-      StatsCommand
+      StatsCommand,
+      ExportCommand,
+      LoadCommand
     ];
 
     this.commands = commandClasses.map((CommandClass) => new CommandClass());
