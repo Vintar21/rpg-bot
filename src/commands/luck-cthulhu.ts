@@ -30,10 +30,10 @@ export class LuckCommand implements Command {
     let answer: string = '';
     if (passed) {
         answer += line(bold(`Luck check passed `) + '✅');
-        answer += line(`Increase your luck of ${modifier.result}`);
+        answer += line(`Decrease your luck of ${modifier.result}`);
     } else {
         answer += line(bold(`Luck check failed `) + '❌');
-        answer += line(`Decrease your luck of ${modifier.result}`);
+        answer += line(`Increase your luck of ${modifier.result}`);
     }
     return answer;
   }
