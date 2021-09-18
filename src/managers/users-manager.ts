@@ -48,6 +48,10 @@ export class UsersManager {
         });
     }
 
+    static exportStats() {
+        UsersManager.users().forEach((user) => user.exportToJSON());
+    }
+
     static getUser(userId: string): RollUser | undefined {
         for(let rollUser of this.rollUsers) {
             if (rollUser.user.id === userId) {

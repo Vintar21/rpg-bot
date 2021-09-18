@@ -20,9 +20,9 @@ const commandHandler = new CommandHandler(config.prefix);
 
 const client: Client = new Client({ws: {intents: Intents.ALL}});
 
-UsersManager.loadStats();
 
 client.on('ready', () => {
+  UsersManager.loadStats();
   console.log('Bot has started');
 });
 
@@ -31,6 +31,7 @@ client.on('message', (message: Message) => {
 });
 
 client.on('error', (e) => {
+  UsersManager.exportStats();
   console.error('Discord client error!', e);
 });
 
