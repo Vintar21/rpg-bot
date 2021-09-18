@@ -1,6 +1,7 @@
 import { Client, Intents, Message } from 'discord.js';
 import { CommandHandler } from './command_handler';
 import { BotConfig, config } from './config/config';
+import { UsersManager } from './managers/users-manager';
 
 /** Pre-startup validation of the bot config. */
 function validateConfig(botConf: BotConfig) {
@@ -18,6 +19,8 @@ validateConfig(config);
 const commandHandler = new CommandHandler(config.prefix);
 
 const client: Client = new Client({ws: {intents: Intents.ALL}});
+
+UsersManager.loadStats();
 
 client.on('ready', () => {
   console.log('Bot has started');

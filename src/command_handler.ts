@@ -5,6 +5,7 @@ import { GreetCommand } from './commands/greet';
 import { GregoryCommand } from './commands/gregory';
 import { HelpCommand } from './commands/help';
 import { LoadCommand } from './commands/load-users';
+import { LuckCommand } from './commands/luck-cthulhu';
 import { RollCommand } from './commands/roll';
 import { StatsCommand } from './commands/stats';
 import { CommandContext } from './models/command_context';
@@ -24,7 +25,8 @@ export class CommandHandler {
       RollCommand,
       StatsCommand,
       ExportCommand,
-      LoadCommand
+      LoadCommand,
+      LuckCommand
     ];
 
     this.commands = commandClasses.map((CommandClass) => new CommandClass());

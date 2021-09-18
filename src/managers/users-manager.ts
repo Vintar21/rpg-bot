@@ -18,6 +18,7 @@ interface StatJson {
 export class UsersManager {
 
     private static rollUsers: RollUser[] = [];
+    private static jsonsFolder: string = './jsons/';
 
     static users(): RollUser[] {
         return this.rollUsers;
@@ -28,10 +29,13 @@ export class UsersManager {
       }
 
     static loadStats() {
-        const jsonsFolder: string = './jsons/'
-        fs.readdir(jsonsFolder, (err, files) => {
+        if (!fs.existsSync(this.jsonsFolder)) {
+            fs.mkdirSync(this.jsonsFolder);
+        }
+
+        fs.readdir(this.jsonsFolder, (err, files) => {
             files.forEach(file => {
-                file = jsonsFolder + file
+                file = this.jsonsFolder + file
                 const content: string = fs.readFileSync(file, 'utf8');
                 const loadedUser: UserJson = JSON.parse(content) as UserJson;
                 const rollUser: RollUser | undefined = UsersManager.getUser(loadedUser.userId);
