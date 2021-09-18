@@ -1,1 +1,0 @@
-{"version":3,"file":"greet.test.js","sourceRoot":"","sources":["../../../test/commands/greet.test.ts"],"names":[],"mappings":";;AAAA,kDAAwD;AAExD,QAAQ,CAAC,cAAc,EAAE;IACvB,IAAM,OAAO,GAAG,IAAI,oBAAY,EAAE,CAAC;IAEnC,EAAE,CAAC,4BAA4B,EAAE;QAC/B,MAAM,CAAC,IAAI,CAAC,CAAC,IAAI,CAAC,IAAI,CAAC,CAAC;IAC1B,CAAC,CAAC,CAAC;AACL,CAAC,CAAC,CAAC"}
