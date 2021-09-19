@@ -51,7 +51,7 @@ export class RollCommand implements Command {
       return {
         totalDices,
         diceValue,
-        isValid: totalDices >= 1 && diceValue >=1
+        isValid: totalDices >= 1 && diceValue >=1 && totalDices <= 100 && diceValue <= 1000
       }
     }
     return this.defaultRoll;
