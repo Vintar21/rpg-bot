@@ -7,10 +7,10 @@ import { UsersManager } from '../managers/users-manager';
 
 export class StatsCommand implements Command {
 
-  commandNames = ['stats'];
+  commandNames = ['stats', 'stat'];
 
   getHelpMessage(commandPrefix: string): string {
-    return `${commandPrefix}stats: return stats on your number `;
+    return `${commandPrefix}stats: return stats on your rolls `;
   }
 
   async run(parsedUserCommand: CommandContext): Promise<void> {

@@ -15,7 +15,7 @@ export class RollCommand implements Command {
   private totalSum: number = 0;
 
   defaultRoll: Roll = {totalDices: -1, diceValue: -1, isValid: false};
-  commandNames = ['roll'];
+  commandNames = ['roll', 'r'];
 
   getHelpMessage(commandPrefix: string): string {
     return `Use ${commandPrefix}roll 1dX to roll a dice X`;
@@ -36,6 +36,7 @@ export class RollCommand implements Command {
   private parseArg(arg: string): Roll {
     let totalDices = NaN;
     let diceValue = NaN;
+    arg = arg.replace(/d+/i, 'd');
     if(arg.includes('d')) {
       const argSplitted: string[] = arg.split('d');
       if (argSplitted.length === 2) {
@@ -50,7 +51,7 @@ export class RollCommand implements Command {
       return {
         totalDices,
         diceValue,
-        isValid: true
+        isValid: totalDices >= 1 && diceValue >=1
       }
     }
     return this.defaultRoll;
@@ -126,10 +127,16 @@ export class RollCommand implements Command {
 
         }
       });
-      logRoll(results, parsedUserCommand.originalMessage.author);
-      const answer: string = mentionUser(parsedUserCommand) + emptyLine() + this.getAnswer(results);
 
-      await parsedUserCommand.originalMessage.channel.send(answer);
+      if (results.length === 0) {
+        await parsedUserCommand.originalMessage.reply('Invalid roll specified.');
+        
+      } else {
+        logRoll(results, parsedUserCommand.originalMessage.author);
+        const answer: string = mentionUser(parsedUserCommand) + emptyLine() + this.getAnswer(results);
+  
+        await parsedUserCommand.originalMessage.channel.send(answer);
+      }
     }
   }
 

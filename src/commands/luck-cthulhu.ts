@@ -7,7 +7,7 @@ import { logRoll } from '../utils/server-utils';
 
 export class LuckCommand implements Command {
 
-  commandNames = ['luck', 'chance'];
+  commandNames = ['luck', 'chance', 'l'];
 
   getHelpMessage(commandPrefix: string): string {
     return `Use ${commandPrefix}roll 1dX to roll a dice X`;
@@ -38,6 +38,10 @@ export class LuckCommand implements Command {
     return answer;
   }
 
+  private isValidArg(args: string[]): boolean {
+    return args.length >= 1 && !isNaN(parseInt(args[0])) && parseInt(args[0]) >= 1 && parseInt(args[0]) <= 100;
+  }
+
   async run(parsedUserCommand: CommandContext): Promise<void> {
 
     const luckCheck: DiceResult = this.rollOneDice(100);
@@ -45,7 +49,7 @@ export class LuckCommand implements Command {
     let answer: string;
     logRoll([luckCheck, modifier], parsedUserCommand.originalMessage.author);
 
-    if (parsedUserCommand.args.length >= 1 && !isNaN(parseInt(parsedUserCommand.args[0]))) {
+    if (this.isValidArg(parsedUserCommand.args)) {
         const luckValue: boolean = luckCheck.result <= parseInt(parsedUserCommand.args[0]);
         answer = mentionUser(parsedUserCommand) + emptyLine() + this.getCheckedAnswer(luckValue, luckCheck, modifier);
 

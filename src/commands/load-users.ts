@@ -16,6 +16,7 @@ export class LoadCommand implements Command {
   }
 
   hasPermissionToRun(parsedUserCommand: CommandContext): boolean {
-    return true;
+    return parsedUserCommand.originalMessage.member !== null 
+    && parsedUserCommand.originalMessage.member.roles.cache.some((role) => role.name === 'Admin');
   }
 }
