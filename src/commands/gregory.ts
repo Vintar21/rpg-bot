@@ -13,7 +13,7 @@ export class GregoryCommand implements Command {
 
   async run(parsedUserCommand: CommandContext): Promise<void> {
       
-      await parsedUserCommand.originalMessage.channel.send("", { files: [this.imagePath] }).catch((error) => console.log(error));
+      // await parsedUserCommand.originalMessage.channel.send("", { files: [this.imagePath] }).catch((error) => console.log(error));
     }
 
   hasPermissionToRun(parsedUserCommand: CommandContext): boolean {
