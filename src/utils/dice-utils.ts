@@ -19,22 +19,20 @@ export class Dice {
 }
 
 export class Bonus {
-
-
   // TODO BOrdel pq c'esty si compliqué cette mezrdfe es, fkljdsnfdsqlk rtfq<wmslnvcsr<edjlkic
   // Faire un enum + fichier spécifique
   static bonusTypes = ['+', '-', '*', '/'];
 
- bonus: string;
- value: number;
+  bonus: string;
+  value: number;
 
- constructor(bonus: string, value: number) {
-   this.bonus = bonus;
-   this.value = value;
- }
+  constructor(bonus: string, value: number) {
+    this.bonus = bonus;
+    this.value = value;
+  }
 
- applyBonus(n: number): number {
-   switch(this.bonus) {
+  applyBonus(n: number): number {
+    switch (this.bonus) {
       case '+':
         return n + this.value;
       case '-':
@@ -43,17 +41,16 @@ export class Bonus {
         return n * this.value;
       case '/':
         return n / this.value;
-   }
-   return n;
- }
+    }
+    return n;
+  }
 
- toString(): string {
-   return this.bonus + this.value.toString();
- }
+  toString(): string {
+    return this.bonus + this.value.toString();
+  }
 }
 
 export class DiceResult {
-
   static DEFAULT_DICE_RESULT: DiceResult = new DiceResult(new Dice(-1), -1);
 
   private diceReference: Dice;

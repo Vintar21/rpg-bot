@@ -18,7 +18,13 @@ validateConfig(config);
 
 const commandHandler = new CommandHandler(config.prefix);
 
-const client: Client = new Client({intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES, Intents.FLAGS.GUILD_VOICE_STATES]});
+const client: Client = new Client({
+  intents: [
+    Intents.FLAGS.GUILDS,
+    Intents.FLAGS.GUILD_MESSAGES,
+    Intents.FLAGS.GUILD_VOICE_STATES,
+  ],
+});
 
 client.on('ready', () => {
   UsersManager.loadStats();
