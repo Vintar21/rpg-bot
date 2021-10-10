@@ -14,7 +14,11 @@ export class MusicManager {
     (state) => {
       this.queue.shift();
       if (this.queue.length > 0) {
-        MusicManager.play();
+        try {
+          MusicManager.play().finally(() => console.log('ended'));
+        } catch (e) {
+          console.log('Error', e);
+        }
       }
     },
   );
@@ -22,6 +26,11 @@ export class MusicManager {
 
   static getPlayer(): AudioPlayer {
     return MusicManager.player;
+  }
+
+  static clearQueue(): void {
+    MusicManager.player.stop(true);
+    this.queue = [];
   }
 
   static addQueue(song: string) {

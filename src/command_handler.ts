@@ -6,7 +6,9 @@ import { GregoryCommand } from './commands/gregory';
 import { HelpCommand } from './commands/help';
 import { LoadCommand } from './commands/load-users';
 import { LuckCommand } from './commands/luck-cthulhu';
-import { PlayCommand } from './commands/play';
+import { ClearCommand } from './commands/music/clear';
+import { PauseCommand } from './commands/music/pause';
+import { PlayCommand } from './commands/music/play';
 import { RollCommand } from './commands/roll';
 import { StatsCommand } from './commands/stats';
 import { CommandContext } from './models/command_context';
@@ -29,6 +31,8 @@ export class CommandHandler {
       LoadCommand,
       LuckCommand,
       PlayCommand,
+      PauseCommand,
+      ClearCommand,
     ];
 
     this.commands = commandClasses.map((CommandClass) => new CommandClass());

@@ -5,13 +5,13 @@ import {
   VoiceConnectionStatus,
 } from '@discordjs/voice';
 import { VoiceChannel } from 'discord.js';
-import { MusicManager } from '../managers/music-manager';
-import { CommandContext } from '../models/command_context';
-import { createDiscordJSAdapter } from '../utils/adapter';
-import { Command } from './command';
+import { MusicManager } from '../../managers/music-manager';
+import { CommandContext } from '../../models/command_context';
+import { createDiscordJSAdapter } from '../../utils/adapter';
+import { Command } from '../command';
 
 export class PlayCommand implements Command {
-  commandNames = ['play'];
+  commandNames = ['play', 'unpause'];
 
   getHelpMessage(commandPrefix: string): string {
     return `Use ${commandPrefix}greet to get a greeting.`;
@@ -30,6 +30,7 @@ export class PlayCommand implements Command {
       parsedUserCommand.originalMessage.member?.voice.channel;
     if (voiceChannel && voiceChannel instanceof VoiceChannel) {
       const song: string = this.parseArg(parsedUserCommand.args);
+
       if (song !== '') {
         MusicManager.addQueue(song);
         try {
@@ -46,6 +47,10 @@ export class PlayCommand implements Command {
             "Couldn't play this song :(",
           );
         }
+      } else if (
+        MusicManager.getPlayer().state.status === AudioPlayerStatus.Paused
+      ) {
+        MusicManager.getPlayer().unpause();
       } else {
         await parsedUserCommand.originalMessage.reply(
           'No link given. Please enter a valid link after the "play" command',
