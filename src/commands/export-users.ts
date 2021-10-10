@@ -15,7 +15,11 @@ export class ExportCommand implements Command {
   }
 
   hasPermissionToRun(parsedUserCommand: CommandContext): boolean {
-    return parsedUserCommand.originalMessage.member !== null 
-      && parsedUserCommand.originalMessage.member.roles.cache.some((role) => role.name === 'Admin');
+    return (
+      parsedUserCommand.originalMessage.member !== null &&
+      parsedUserCommand.originalMessage.member.roles.cache.some(
+        (role) => role.name === 'Admin',
+      )
+    );
   }
 }

@@ -6,6 +6,9 @@ import { GregoryCommand } from './commands/gregory';
 import { HelpCommand } from './commands/help';
 import { LoadCommand } from './commands/load-users';
 import { LuckCommand } from './commands/luck-cthulhu';
+import { ClearCommand } from './commands/music/clear';
+import { PauseCommand } from './commands/music/pause';
+import { PlayCommand } from './commands/music/play';
 import { RollCommand } from './commands/roll';
 import { StatsCommand } from './commands/stats';
 import { CommandContext } from './models/command_context';
@@ -26,7 +29,10 @@ export class CommandHandler {
       StatsCommand,
       ExportCommand,
       LoadCommand,
-      LuckCommand
+      LuckCommand,
+      PlayCommand,
+      PauseCommand,
+      ClearCommand,
     ];
 
     this.commands = commandClasses.map((CommandClass) => new CommandClass());
@@ -47,9 +53,10 @@ export class CommandHandler {
     );
 
     const matchedCommand = this.commands.find((command) =>
-      command.commandNames.includes(commandContext.parsedCommandName));
+      command.commandNames.includes(commandContext.parsedCommandName),
+    );
 
-    if(matchedCommand === undefined) {
+    if (matchedCommand === undefined) {
       return;
     }
 

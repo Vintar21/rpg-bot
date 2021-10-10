@@ -1,52 +1,51 @@
-import { User, UserManager } from "discord.js";
-import { emptyLine } from "../utils/discord-utils";
-import { DiceResult } from "..//utils/dice-utils";
-import { Statistic } from "./statistic";
+import { User } from 'discord.js';
 import * as fs from 'fs';
-import { UsersManager } from "../managers/users-manager";
+import { DiceResult } from '..//utils/dice-utils';
+import { emptyLine } from '../utils/discord-utils';
+import { Statistic } from './statistic';
 
 export class RollUser {
-    user: User;
-    statistics: Statistic[] = [];
+  user: User;
+  statistics: Statistic[] = [];
 
-    constructor(user: User) {
-        this.user = user;
+  constructor(user: User) {
+    this.user = user;
+  }
+
+  addRoll(roll: DiceResult) {
+    let added: boolean = false;
+    this.statistics.forEach((stat) => {
+      // TODO equals function override
+      if (stat.dice.value === roll.dice.value) {
+        added = true;
+        stat.addRoll(roll.result);
+      }
+    });
+
+    if (!added) {
+      this.statistics.push(new Statistic(roll));
     }
+  }
 
-    addRoll(roll: DiceResult) {
-        let added: boolean = false;
-        this.statistics.forEach((stat) => {
-            // TODO equals function override
-            if (stat.dice.value === roll.dice.value) {
-                added = true;
-                stat.addRoll(roll.result);
-            }
-        });
+  get statsString(): string {
+    let stats: string = '';
+    this.statistics.forEach((stat) => (stats += stat.toString() + emptyLine()));
+    return stats;
+  }
 
-        if (!added) {
-            this.statistics.push(new Statistic(roll))
-        }
-    }
+  exportToJSON(): any {
+    const jsonUser: string = JSON.stringify({
+      userId: this.user.id,
+      userName: this.user.username,
+      stats: this.statistics.map((stat) => stat.convertToJSONObject()),
+    });
 
-    get statsString(): string {
-        let stats: string = '';
-        this.statistics.forEach((stat) => stats += stat.toString() + emptyLine());
-        return stats;
-    }
-
-    exportToJSON(): any {
-        const jsonUser: string = JSON.stringify({
-            userId: this.user.id,
-            userName: this.user.username,
-            stats: this.statistics.map((stat) => stat.convertToJSONObject())
-        });
-
-        fs.writeFile(`./jsons/${this.user.id}.json`, jsonUser, function(err) {
-            if (err) {
-                return console.error(err);
-            }});
-            console.log(`JSON file created for user ${this.user.username}`);
-        // UsersManager.loadStats();
-
-    }
+    fs.writeFile(`./jsons/${this.user.id}.json`, jsonUser, function (err) {
+      if (err) {
+        return console.error(err);
+      }
+    });
+    console.log(`JSON file created for user ${this.user.username}`);
+    // UsersManager.loadStats();
+  }
 }
